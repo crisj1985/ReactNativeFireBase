@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 export class ListaProductos extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>LISTA DE PRODUCTOS</Text>
+        <Button
+          title='Formulario Productos'
+          onPress={() => {
+            this.props.navigation.navigate("StackFormularioProducto")
+          }}
+        >
+
+        </Button>
       </View>
     );
   }
