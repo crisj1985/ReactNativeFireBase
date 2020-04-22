@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 
 
-function TabCompra() {
-  return (
+// function TabCompra() {
+//   return (
 
-    <navStack.Navigator initialRouteName='DetalleCompraScreen'>
-      <navStack.Screen options={{ title: 'Detalle Compra' }} name="DetalleCompraScreen" component={DetalleCompra} />
-    </navStack.Navigator>
+//     <navStack.Navigator initialRouteName='DetalleCompraScreen'>
+//       <navStack.Screen options={{ title: 'Detalle Compra' }} name="DetalleCompraScreen" component={DetalleCompra} />
+//     </navStack.Navigator>
 
-  );
-}
+//   );
+// }
 
 export class ListaCompras extends Component {
   render() {
@@ -19,7 +19,7 @@ export class ListaCompras extends Component {
         <Text>LISTA DE COMPRAS</Text>
         <Button 
           title='Detalle' 
-          onPress={() => { this.props.navigation.navigate('DetalleCompraScreen')}}
+          onPress={() => { this.props.navigation.navigate("StackDetalleCompra");}}
         >
         </Button>
 

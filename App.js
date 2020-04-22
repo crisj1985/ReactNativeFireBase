@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
@@ -7,16 +7,22 @@ import { ListaCompras} from './screens/ListaCompras'
 import { ListaProductos } from './screens/ListaProductos'
 import { FormularioProducto } from './screens/FormularioProducto'
 import { DetalleCompra } from "./screens/DetalleCompra";
+import { Informacion } from "./screens/Informacion";
+import { Login } from "./screens/Login";
+import { Registrar } from "./screens/Registrar";
+import {cargarConfiguracion} from './Servicios/firebaseConfig'
+import {createDrawerNavigator} from '@react-navigation/drawer'
 
 let navStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
+let NavDrawer = createDrawerNavigator();
 
 function TabCompra (){
   return(
       
-    <navStack.Navigator initialRouteName='CompraScreen'>
-      <navStack.Screen options={{ title: 'Compra' }} name="CompraScreen" component={ListaCompras} />
-            <navStack.Screen options={{ title: 'Detalle Compra' }} name="DetalleCompraScreen" component={DetalleCompra} />
+    <navStack.Navigator initialRouteName='StackCompra'>
+      <navStack.Screen options={{ title: 'Compra' }} name="StackCompra" component={ListaCompras} />
+      <navStack.Screen options={{ title: 'Detalle Compra' }} name="StackDetalleCompra" component={DetalleCompra} />
           </navStack.Navigator>
       
   );
@@ -33,57 +39,92 @@ function TabProducto() {
   );
 }
 
-export default function App() {
-    return (
-    
+function TabHome() {
+  return (
+    <NavTab.Navigator initialRouteName="TabListaCompras">
+      <NavTab.Screen
+        options={{
+          tabBarLabel: "Compras",
+          tabBarIcon: () => {
+            return (
+              <Icon
+                reverse
+                name="gift"
+                type="AntDesign"
+                color="#517fa4"
+                size={16}
+              />
+            );
+          },
+        }}
+        name="TabListaCompras"
+        component={TabCompra}
+      />
+      <NavTab.Screen
+        options={{
+          tabBarLabel: "Productos",
+          tabBarIcon: () => {
+            return (
+              <Icon
+                reverse
+                name="truck"
+                type="font-awesome"
+                color="#517fa4"
+                size={16}
+              />
+            );
+          },
+        }}
+        name="TabListaProductos"
+        component={TabProducto}
+      />
+    </NavTab.Navigator>
+  );
+}
 
+export default class App extends Component {
+
+constructor(){
+  super();
+  this.state = {
+    login:false
+  }
+  if (!global.estaConfigurado) cargarConfiguracion();
+}
+
+fnCambiarEstado = () =>{
+  this.setState({login:true})
+}
+
+  render(){
+    return (
       <NavigationContainer>
-        <NavTab.Navigator initialRouteName="TabListaCompras">
-          <NavTab.Screen
-            options={{ tabBarLabel: "Compras", tabBarIcon : ()=>{return <Icon
-                                                                       reverse
-                                                                       name="gift"
-                                                                       type="font-awesome"
-                                                                       color="#517fa4"
-                                                                       size={16}
-                                                                     />} }}
-            name="TabListaCompras"
-            component={TabCompra}
-          />
-          <NavTab.Screen
-            options={{ tabBarLabel: "Productos", tabBarIcon : ()=>{return (
-                                                                     <Icon
-                                                                       reverse
-                                                                       name="truck"
-                                                                       type="font-awesome"
-                                                                       color="#517fa4"
-                                                                       size={16}
-                                                                     />
-                                                                   );}}}
-            name="TabListaProductos"
-            component={TabProducto}
-          />
-          {/* <NavTab.Screen
-            options={
-              {
-                tabBarLabel: "Tab Compra",
-                tabBarIcon: () => {
-                  return (
-                    <Icon
-                      reverse
-                      name="gift"
-                      type="font-awesome"
-                      color="#517fa4"
-                      size={16}
-                    />
-                  );
-                }
+        {this.state.login ? (
+          <NavDrawer.Navigator>
+            <NavDrawer.Screen
+              name="Home"
+              component={TabHome}
+            ></NavDrawer.Screen>
+            <NavDrawer.Screen
+              name="Informacion"
+              component={Informacion}
+            ></NavDrawer.Screen>
+          </NavDrawer.Navigator>
+        ) : (
+          <navStack.Navigator>
+            <navStack.Screen name="login">
+              {() => {
+                return <Login cambiarEstado={this.fnCambiarEstado} />;
               }}
-            name="TabCompraScreen"
-            component={TabCompra}
-          /> */}
-          
-        </NavTab.Navigator>
+            </navStack.Screen>
+            <navStack.Screen
+              name="Registro"
+              component={Registrar}
+            ></navStack.Screen>
+          </navStack.Navigator>
+        )}
       </NavigationContainer>
     );
+  }
+    
 }
