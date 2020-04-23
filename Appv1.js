@@ -14,7 +14,6 @@ import { CambioClave } from "./screens/CambioClave";
 import {cargarConfiguracion} from './Servicios/firebaseConfig'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import firebase from "firebase";
-import { SingOut}  from './screens/SingOut';
 
 let navStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -120,16 +119,13 @@ fnCambiarEstado = () =>{
               name="Informacion"
               component={Informacion}
             ></NavDrawer.Screen>
-            <NavDrawer.Screen
-              name="CerrarSesion"
-              component={SingOut}
-            ></NavDrawer.Screen>
           </NavDrawer.Navigator>
         ) : (
           <navStack.Navigator>
-              <navStack.Screen 
-              name="login" 
-              component={Login}>
+            <navStack.Screen name="login">
+              {() => {
+                return <Login cambiarEstado={this.fnCambiarEstado} />;
+              }}
             </navStack.Screen>
             <navStack.Screen
               name="Registro"
