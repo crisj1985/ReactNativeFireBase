@@ -35,7 +35,7 @@ export class FormularioProducto extends Component {
              <View style={styles.container}>
                <Text>FORMULARIO DE PRODUCTO</Text>
                <Input
-                 value={this.state.Id}
+                 value={this.state.id}
                  placeholder="Id"
                  secureTextEntry={false}
                  onChangeText={(txt) => {
@@ -44,7 +44,7 @@ export class FormularioProducto extends Component {
                  leftIcon={{ type: "font-awesome", name: "key", color: "red" }}
                />
                <Input
-                 value={this.state.Id}
+                 value={this.state.nombre}
                  placeholder="Nombre"
                  secureTextEntry={false}
                  onChangeText={(txt) => {
@@ -57,7 +57,7 @@ export class FormularioProducto extends Component {
                  }}
                />
                <Input
-                 value={this.state.Id}
+                 value={this.state.precio}
                  placeholder="Precio"
                  secureTextEntry={false}
                  onChangeText={(txt) => {
