@@ -15,6 +15,7 @@ import {cargarConfiguracion} from './Servicios/firebaseConfig'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import firebase from "firebase";
 import { SingOut}  from './screens/SingOut';
+import { YellowBox } from "react-native";
 
 let navStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -92,6 +93,11 @@ constructor(){
   this.state = {
     login:false
   }
+  // console.disableYellowBox = true;
+  YellowBox.ignoreWarnings([
+    "Warning: componentWillReceiveProps",
+    "Setting a timer",
+  ]);
   if (!global.estaConfigurado) cargarConfiguracion();
 
   firebase.auth().onAuthStateChanged((usuario) => {
