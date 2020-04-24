@@ -16,6 +16,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer'
 import firebase from "firebase";
 import { SingOut}  from './screens/SingOut';
 import { YellowBox } from "react-native";
+import { decode, encode } from "base-64";
 
 let navStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -107,6 +108,15 @@ constructor(){
       this.setState({ login: false })
 
   })
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
+
 }
 
 fnCambiarEstado = () =>{
