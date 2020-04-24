@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import "@firebase/firestore";
 
 export const cargarConfiguracion = () => {
     // if(!global.estaConfigurado){
@@ -13,6 +14,7 @@ export const cargarConfiguracion = () => {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    global.firestoreBD = firebase.firestore();
     global.estaConfigurado = true;
 
     // }
