@@ -12,4 +12,12 @@ const crearProducto = (producto, onSuccess, onError) => {
         })
 }
 
-export { crearProducto }
+const registrarListener = () => {
+    global.firestoreBD
+        .collection('productos')
+        .onSnapshot(() => {
+            Alert.alert('cambio sobre productos');
+        })
+}
+
+export { crearProducto, registrarListener };
