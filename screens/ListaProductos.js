@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, FlatList } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
-import { FlatList } from "react-native-gesture-handler";
 import { ItemProducto } from "./itemProductos";
 import {registrarListener} from '../Servicios/ServiciosProducos'
 
@@ -34,9 +33,9 @@ registrarListener(this.pintar);
        <FlatList
        data={this.state.listaProductos}
        renderItem = {({item})=>{
-       return <ItemProducto productos={item}/>
+       return <ItemProducto nav={this.props.navigation} productos={item}/>
        }}
-       keyExtractor = {item=>parseInt( item.id)}
+       keyExtractor = {item=>item.id + ''}
        />
         <ActionButton buttonColor="rgba(231,76,60,1)">
           <ActionButton.Item

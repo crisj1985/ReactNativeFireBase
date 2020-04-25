@@ -2,23 +2,42 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Alert } from "react-native";
 import { Input,Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {crearProducto} from '../Servicios/ServiciosProducos'
+import { crearProducto, updateElementoFB} from '../Servicios/ServiciosProducos'
 
 export class FormularioProducto extends Component {
-         constructor() {
-           super();
-           this.state = {
-             id: 0,
-             nombre: "",
-             precio: 0,
-           };
+         constructor(props) {
+           super(props);
+
+           if (this.props.route != null && this.props.route.params != null){
+             let producto = this.props.route.params.producto;
+
+
+             this.state = {
+               id: ""+producto.id,
+               nombre: producto.nombre,
+               precio: "" +producto.precio,
+               esNuevo:false
+             };
+           }
+           else{
+             this.state = {
+               id: 0,
+               nombre: "",
+               precio: 0,
+               esNuevo: true
+             };
+           }
+             
+
+
+          
          }
 
          OnSuccess = () => {
            this.fnLimpiar();  
          };
 
-         OnError = (error, ) => {
+         OnError = (error ) => {
            Alert.alert('Error',error.message);
          };
 
@@ -35,6 +54,7 @@ export class FormularioProducto extends Component {
              <View style={styles.container}>
                <Text>FORMULARIO DE PRODUCTO</Text>
                <Input
+               disabled = {!this.state.esNuevo}
                  value={this.state.id}
                  placeholder="Id"
                  secureTextEntry={false}
@@ -71,11 +91,22 @@ export class FormularioProducto extends Component {
                />
                <Button
                  onPress={() => {
-                   crearProducto({
-                     id: this.state.id,
-                     nombre: this.state.nombre,
-                     precio: parseFloat(this.state.precio),
-                   },this.OnSuccess, this.OnError)
+
+                   if (this.state.esNuevo){
+                    crearProducto({
+                      id: this.state.id,
+                      nombre: this.state.nombre,
+                      precio: parseFloat(this.state.precio),
+                    }, this.OnSuccess, this.OnError)
+                  }
+                  else{
+                    updateElementoFB({
+                      id: this.state.id,
+                      nombre: this.state.nombre,
+                      precio: parseFloat(this.state.precio),
+                    }, this.OnSuccess, this.OnError)
+                  }
+                   
                  }}
                  icon={
                    <Icon

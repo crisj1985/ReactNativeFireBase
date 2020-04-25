@@ -46,6 +46,15 @@ const eliminarElementoFB = (id, onSuccess, onError) => {
 
 }
 
+const updateElementoFB = (producto) => {
+    global.firestoreBD
+        .collection('productos')
+        .doc(producto.id)
+        .update({ nombre: producto.nombre, precio: producto.precio })
+        .then((obj) => { onSuccess() })
+        .catch((error) => { onError(error) })
+}
+
 const registrarListener = (fnPintar) => {
     productos = [];
     global.firestoreBD
@@ -68,4 +77,4 @@ const registrarListener = (fnPintar) => {
         })
 }
 
-export { crearProducto, registrarListener, eliminarElementoFB };
+export { crearProducto, registrarListener, eliminarElementoFB, updateElementoFB };
