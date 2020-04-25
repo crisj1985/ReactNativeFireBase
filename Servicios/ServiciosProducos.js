@@ -11,6 +11,40 @@ const crearProducto = (producto, onSuccess, onError) => {
             onError(error);
         })
 }
+const buscarElemento = (elem, arreglo) => {
+
+    for (i = 0; i < arreglo.length; i++) {
+        if (arreglo[i].id == elem.id)
+            return i
+    }
+
+    return -1;
+}
+
+const actualizarElemento = (elem, arreglo) => {
+    let indice = buscarElemento(elem, arreglo)
+    arreglo[indice].id = elem.id;
+    arreglo[indice].nombre = elem.nombre;
+    arreglo[indice].precio = elem.precio;
+}
+
+const eliminarElemento = (elem, arreglo) => {
+    let indice = buscarElemento(elem, arreglo)
+    if (indice != -1)
+        arreglo.splice(indice, 1)
+
+}
+
+const eliminarElementoFB = (id, onSuccess, onError) => {
+    global.firestoreBD
+        .collection('productos')
+        .doc(id)
+        .delete()
+        .then((obj) => { onSuccess() })
+        .catch((error) => { onError(error) })
+
+
+}
 
 const registrarListener = (fnPintar) => {
     productos = [];
@@ -23,11 +57,10 @@ const registrarListener = (fnPintar) => {
                 itemCambio = cambios[i];
                 if ((itemCambio.type == "added")) {
                     productos.push(itemCambio.doc.data())
-                    Alert.alert("Cambio Added");
                 } else if ((itemCambio.type == "removed")) {
-                    Alert.alert("Cambio removed");
+                    eliminarElemento(itemCambio.doc.data(), productos)
                 } else if ((itemCambio.type == "modified")) {
-                    Alert.alert("Cambio modified");
+                    actualizarElemento(itemCambio.doc.data(), productos)
                 }
 
             }
@@ -35,4 +68,4 @@ const registrarListener = (fnPintar) => {
         })
 }
 
-export { crearProducto, registrarListener };
+export { crearProducto, registrarListener, eliminarElementoFB };
