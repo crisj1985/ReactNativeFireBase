@@ -1,0 +1,41 @@
+import React, { Component } from 'react'
+import { Text, View, Button, Alert,TouchableHighlight } from 'react-native'
+import { eliminarElementoFB} from '../Servicios/ServiciosProducos'
+import { NavigationContext } from '@react-navigation/native';
+
+export class ItemCompra extends Component {
+
+  OnSuccess = () => {
+    Alert.alert('Producto Eliminado');
+  };
+
+  OnError = (error) => {
+    Alert.alert('Error', error.message);
+  };
+
+    render() {
+        const {productos} = this.props 
+        const {id,nombre,precio} = productos
+        return (
+          <View>
+            {/* <TouchableHighlight
+            onPress={()=>{
+                nav.navigate("StackFormularioProducto",{producto:productos});
+            }}
+            > */}
+              <View><Text> {id} {nombre} </Text>
+                <Text> {precio} </Text>
+                </View>
+              
+            {/* </TouchableHighlight> */}
+            
+            {/* <Button
+            title='Eliminar'
+            onPress={()=>{
+              eliminarElementoFB(id, this.OnSuccess, this.OnError);
+            }}
+            ></Button> */}
+          </View>
+        );
+    }
+}

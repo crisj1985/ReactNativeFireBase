@@ -1,27 +1,38 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-
-
-// function TabCompra() {
-//   return (
-
-//     <navStack.Navigator initialRouteName='DetalleCompraScreen'>
-//       <navStack.Screen options={{ title: 'Detalle Compra' }} name="DetalleCompraScreen" component={DetalleCompra} />
-//     </navStack.Navigator>
-
-//   );
-// }
+import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { registrarListener } from '../Servicios/ServiciosProducos'
+import { ItemCompra } from "./itemCompras";
 
 export class ListaCompras extends Component {
+constructor(){
+  super();
+  this.state = {
+    lstCompras : []
+  }
+}
+
+  pintar = (compras) => {
+    this.setState({
+      lstCompras: compras,
+    });
+
+  }
+
+  componentDidMount() {
+    registrarListener(this.pintar);
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text>LISTA DE COMPRAS</Text>
-        <Button 
-          title='Detalle' 
-          onPress={() => { this.props.navigation.navigate("StackDetalleCompra");}}
-        >
-        </Button>
+        <FlatList
+          data={this.state.lstCompras}
+          renderItem={({ item }) => {
+            return <ItemCompra  productos={item} />
+          }}
+          keyExtractor={item => item.id + ''}
+        />
 
       </View>
     );
