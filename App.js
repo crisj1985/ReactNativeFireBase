@@ -22,23 +22,13 @@ let navStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 let NavDrawer = createDrawerNavigator();
 
-function TabCompra (){
-  return(
-      
-    <navStack.Navigator initialRouteName='StackCompra'>
-      <navStack.Screen options={{ title: 'Compra' }} name="StackCompra" component={ListaCompras} />
-      <navStack.Screen options={{ title: 'Detalle Compra' }} name="StackDetalleCompra" component={DetalleCompra} />
-          </navStack.Navigator>
-      
-  );
-}
-
-function TabProducto() {
+function Home() {
   return (
 
-    <navStack.Navigator initialRouteName='StackListaProducto'>
-      <navStack.Screen options={{ title: 'Productos' }} name="StackListaProducto" component={ListaProductos} />
-      <navStack.Screen options={{ title: 'Detalle Productos' }} name="StackFormularioProducto" component={FormularioProducto} />
+    <navStack.Navigator initialRouteName='TabHome'>
+      <navStack.Screen options={{ title: 'Home' }} name="TabHome" component={TabHome} />
+      <navStack.Screen options={{ title: 'Formulario Productos' }} name="StackFormularioProducto" component={FormularioProducto} />
+      <navStack.Screen options={{ title: 'Detalle Compras' }} name="StackDetalleCompra" component={DetalleCompra} />
     </navStack.Navigator>
 
   );
@@ -54,8 +44,8 @@ function TabHome() {
             return (
               <Icon
                 reverse
-                name="gift"
-                type="AntDesign"
+                name="shopping-cart"
+                type="font-awesome"
                 color="#517fa4"
                 size={16}
               />
@@ -63,7 +53,7 @@ function TabHome() {
           },
         }}
         name="TabListaCompras"
-        component={TabCompra}
+        component={ListaCompras}
       />
       <NavTab.Screen
         options={{
@@ -81,7 +71,7 @@ function TabHome() {
           },
         }}
         name="TabListaProductos"
-        component={TabProducto}
+        component={ListaProductos}
       />
     </NavTab.Navigator>
   );
@@ -130,7 +120,7 @@ fnCambiarEstado = () =>{
           <NavDrawer.Navigator>
             <NavDrawer.Screen
               name="Home"
-              component={TabHome}
+              component={Home}
             ></NavDrawer.Screen>
             <NavDrawer.Screen
               name="Informacion"
