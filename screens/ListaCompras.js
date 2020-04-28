@@ -29,7 +29,7 @@ constructor(){
         <FlatList
           data={this.state.lstCompras}
           renderItem={({ item }) => {
-            return <ItemCompra  productos={item} />
+            return <ItemCompra productos={item} nav={this.props.navigation} />
           }}
           keyExtractor={item => item.id + ''}
         />
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "stretch",//aplica al eje transversal
+    justifyContent: "center",//eje principal
+    flexDirection : "column",//eje pricipal es el vertical
   },
 });
