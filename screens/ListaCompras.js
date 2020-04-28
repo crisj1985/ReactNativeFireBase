@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { StyleSheet, Text, View, Button, FlatList, Alert } from "react-native";
 import { registrarListener } from '../Servicios/ServiciosProducos'
 import { ItemCompra } from "./itemCompras";
+import ActionButton from "react-native-action-button";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export class ListaCompras extends Component {
 constructor(){
@@ -33,7 +35,15 @@ constructor(){
           }}
           keyExtractor={item => item.id + ''}
         />
-
+        <ActionButton 
+          buttonColor="#E633FF" 
+          onPress={() => { this.props.navigation.navigate("StackCarrito")}}
+          renderIcon={active =>  (<Icon name="shopping-cart"
+            size={32}
+            color="white"
+            type="font-awesome" style={styles.actionButtonIcon} />) }
+        />
+      
       </View>
     );
   }

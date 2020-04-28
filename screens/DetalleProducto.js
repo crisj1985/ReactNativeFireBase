@@ -33,15 +33,6 @@ super(props);
                     }}
                     />
                 </View>
-                <ActionButton buttonColor="rgba(231,76,60,1)">
-                    <ActionButton.Item
-                        buttonColor="#9b59b6"
-                        title="Nuevo Producto"
-                        onPress={() => this.props.navigation.navigate("StackFormularioProducto")}
-                    >
-                        <Icon name="md-create" style={styles.actionButtonIcon} />
-                    </ActionButton.Item>
-                </ActionButton>
             </View>
         )
     }

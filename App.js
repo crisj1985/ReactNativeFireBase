@@ -9,6 +9,7 @@ import { FormularioProducto } from './screens/FormularioProducto'
 import { DetalleCompra } from "./screens/DetalleCompra";
 import { Informacion } from "./screens/Informacion";
 import { DetalleProducto } from "./screens/DetalleProducto";
+import { CarritoCompras } from "./screens/Carrito";
 import { Login } from "./screens/Login";
 import { Registrar } from "./screens/Registrar";
 import { CambioClave } from "./screens/CambioClave";
@@ -31,6 +32,7 @@ function Home() {
       <navStack.Screen options={{ title: 'Formulario Productos' }} name="StackFormularioProducto" component={FormularioProducto} />
       <navStack.Screen options={{ title: 'Detalle Compras' }} name="StackDetalleCompra" component={DetalleCompra} />
       <navStack.Screen options={{ title: 'Detalle Producto' }} name="StackDetalleProducto" component={DetalleProducto} />
+      <navStack.Screen options={{ title: 'Carrito de Compras' }} name="StackCarrito" component={CarritoCompras} />
     </navStack.Navigator>
 
   );
