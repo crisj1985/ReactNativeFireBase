@@ -94,8 +94,10 @@ constructor(){
   if (!global.estaConfigurado) cargarConfiguracion();
 
   firebase.auth().onAuthStateChanged((usuario) => {
-    if (usuario)
-      this.setState({ login: true })
+    if (usuario){
+        global.mailUsuario=usuario.email;
+        this.setState({ login: true })
+    }
     else
       this.setState({ login: false })
 

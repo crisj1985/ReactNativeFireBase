@@ -19,8 +19,9 @@ export class ItemCompra extends Component {
         const {id,nombre,precio} = productos
         return (
           <TouchableHighlight
+          underlayColor="white"
           onPress={()=>{
-              nav.navigate("StackDetalleProducto");
+            nav.navigate("StackDetalleProducto", { producto: productos });
           }}
           >
             <View style={styles.fila}>
@@ -45,13 +46,13 @@ const styles = StyleSheet.create({
   fila: {
     flex: 1,
     flexDirection: "row",//eje pricipal es el horizontal
-    backgroundColor: "orange",
+    backgroundColor: "#33FF86",
     marginBottom:10,
     // alignItems: "stretch",//aplica al eje transversal
     // justifyContent: "center",//eje principal
     paddingVertical:10,
     // paddingTop: 10,
-    borderRadius: 25
+    borderRadius: 15
     
   },
 
