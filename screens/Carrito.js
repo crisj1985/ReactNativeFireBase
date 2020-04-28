@@ -1,11 +1,41 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, FlatList } from 'react-native'
+import {registrarListener} from '../Servicios/ServicioCarrito'
+import {ItemCarrito} from './ItemCarrito'
 
 export class CarritoCompras extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            lstItems: []
+        }
+    }
+
+    pintar = (items) => {
+        this.setState({
+            lstItems: items,
+        });
+
+    }
+
+    componentDidMount() {
+        registrarListener(global.mailUsuario, this.pintar);
+    }
+
     render() {
         return (
             <View>
-                <Text> Carrito de Compras </Text>
+                <FlatList
+                    data={this.state.lstItems}
+                    renderItem={({ item }) => {
+                        return <ItemCarrito itemCarrito = {item} />
+
+                    }
+
+                    }
+                    keyExtractor = {item=>item.id}
+                />
             </View>
         )
     }
