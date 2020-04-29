@@ -1,0 +1,3 @@
+[0428/184629.962:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[0428/184629.963:ERROR:exception_snapshot_win.cc(98)] thread ID 1152 not found in process
+[0428/184629.963:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Se intentó obtener acceso a un proceso que está cerrándose. (0xc000010a)
