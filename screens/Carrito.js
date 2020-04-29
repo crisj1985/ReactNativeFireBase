@@ -28,11 +28,7 @@ export class CarritoCompras extends Component {
             <View>
                 <FlatList
                     data={this.state.lstItems}
-                    renderItem={({ item }) => {
-                        return <ItemCarrito itemCarrito = {item} />
-
-                    }
-
+                    renderItem={({ item }) => <ItemCarrito itemCarrito = {item} />
                     }
                     keyExtractor = {item=>item.id}
                 />
