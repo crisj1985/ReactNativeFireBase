@@ -8,13 +8,19 @@ export class CarritoCompras extends Component {
     constructor() {
         super();
         this.state = {
-            lstItems: []
+            lstItems: [],
+            total:0
         }
     }
 
     pintar = (items) => {
+        let totalitems = 0;
+        items.forEach(element => {
+            totalitems += element.subtotal;
+        });
         this.setState({
             lstItems: items,
+            total: totalitems
         });
 
     }
@@ -26,6 +32,7 @@ export class CarritoCompras extends Component {
     render() {
         return (
             <View>
+                <Text>{this.state.total}</Text>
                 <FlatList
                     data={this.state.lstItems}
                     renderItem={({ item }) => <ItemCarrito itemCarrito = {item} />
