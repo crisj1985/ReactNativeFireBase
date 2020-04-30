@@ -1,17 +1,45 @@
 import { Alert } from "react-native";
 
-export const agregarItem = (mail, itemCompra) => {
+export const agregarItem = (mail, itemCompra, value) => {
+
     global.firestoreBD
         .collection("carritos")
         .doc(mail).collection("items")
         .doc(itemCompra.id)
-        .set(itemCompra)
+        .get()
         .then((obj) => {
-            Alert.alert("Agregado al Carrito");
+            console.log('Objeto', obj.exists)
+            if (obj.exists) {
+                let cantidadItem = obj.data().cantidad;
+                let itemPrecio = obj.data().precio;
+                global.firestoreBD
+                    .collection("carritos")
+                    .doc(mail).collection("items")
+                    .doc(itemCompra.id)
+                    .update({
+                        cantidad: cantidadItem + value,
+                        subtotal: (cantidadItem + value) * itemPrecio
+                    })
+            } else {
+                itemCompra.subtotal = itemCompra.precio;
+                global.firestoreBD
+                    .collection("carritos")
+                    .doc(mail).collection("items")
+                    .doc(itemCompra.id)
+                    .set(itemCompra)
+                    .then((obj) => {
+                        Alert.alert("Agregado al Carrito");
+                    })
+                    .catch((error) => {
+                        Alert.alert(error);
+                    })
+            }
+
         })
         .catch((error) => {
-            Alert.alert(error);
+
         })
+
 }
 
 export const buscarElemento = (elem, arreglo) => {
@@ -26,9 +54,7 @@ export const buscarElemento = (elem, arreglo) => {
 
 export const actualizarElemento = (elem, arreglo) => {
     let indice = buscarElemento(elem, arreglo)
-    arreglo[indice].id = elem.id;
-    arreglo[indice].nombre = elem.nombre;
-    arreglo[indice].precio = elem.precio;
+    arreglo[indice] = elem;
 }
 
 export const eliminarElemento = (elem, arreglo) => {

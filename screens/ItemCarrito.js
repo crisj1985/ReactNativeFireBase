@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet} from 'react-native'
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {eliminarElementoFB} from "../Servicios/ServicioCarrito"
+import { eliminarElementoFB, agregarItem} from "../Servicios/ServicioCarrito"
 
 export class ItemCarrito extends Component {
 
@@ -10,7 +10,8 @@ export class ItemCarrito extends Component {
 
     render() {
         const { itemCarrito} = this.props;
-        const {id,nombre,cantidad,precio} = itemCarrito;
+        const {id,nombre,cantidad,precio,subtotal} = itemCarrito;
+        cantidad == 0 ? eliminarElementoFB(global.mailUsuario, id, this.OnSuccess, this.OnError):"";
 
         return (
             <View style={styles.fila}>
@@ -22,6 +23,7 @@ export class ItemCarrito extends Component {
                 </View>
                 <View style={styles.precio}>
                     <Text style={styles.textoDescripcion}> {precio} </Text>
+                    <Text style={styles.textoDescripcion}> {subtotal} </Text>
                 </View>
                 <View style={styles.boton}>
                     <Button
@@ -38,6 +40,35 @@ export class ItemCarrito extends Component {
                             type="font-awesome"
                         />
                     }
+                    />
+                    <Button 
+                        type="clear"
+                        icon={
+                            <Icon
+                                name="plus"
+                                size={20}
+                                color="white"
+                                type="font-awesome"
+                            />
+                        }
+                        onPress={()=>{
+                            agregarItem(global.mailUsuario, itemCarrito, 1);
+                        }}
+                        />
+                        <Text>{cantidad}</Text>
+                    <Button 
+                        type="clear"
+                        icon={
+                            <Icon
+                                name="minus"
+                                size={20}
+                                color="white"
+                                type="font-awesome"
+                            />
+                            
+                        }
+                        onPress={() => { agregarItem(global.mailUsuario, itemCarrito, -1)}}
+                        //     : eliminarElementoFB(global.mailUsuario, id, this.OnSuccess, this.OnError)}
                     />
                 </View>
                 

@@ -29,7 +29,7 @@ super(props);
                         agregarItem(global.mailUsuario, {cantidad:1, 
                                          id: producto.id, 
                                          nombre:producto.nombre, 
-                                         precio:producto.precio });
+                                         precio:producto.precio },1);
                     }}
                     />
                 </View>
