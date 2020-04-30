@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, FlatList } from 'react-native'
-import {registrarListener} from '../Servicios/ServicioCarrito'
+import { registrarListener, VaciarCarrito} from '../Servicios/ServicioCarrito'
 import {ItemCarrito} from './ItemCarrito'
+import { Button } from 'react-native-elements';
 
 export class CarritoCompras extends Component {
 
@@ -32,6 +33,11 @@ export class CarritoCompras extends Component {
     render() {
         return (
             <View>
+                <Button title = "Vaciar Carrito"
+                onPress= {()=>{
+                    VaciarCarrito(this.state.lstItems, global.mailUsuario);
+                }}
+                />
                 <Text>{this.state.total}</Text>
                 <FlatList
                     data={this.state.lstItems}

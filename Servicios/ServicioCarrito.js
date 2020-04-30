@@ -77,6 +77,20 @@ export const eliminarElementoFB = (mail, id, onError) => {
 
 }
 
+export const VaciarCarrito = (lstItems, mail) => {
+    lstItems.forEach(element => {
+        global.firestoreBD
+            .collection('carritos')
+            .doc(mail)
+            .collection("items")
+            .doc(element.id)
+            .delete()
+            .then((obj) => {})
+            .catch((error) => { Alert.alert("Error", error.message) })
+    });
+
+}
+
 export const registrarListener = (mail, fnPintar) => {
     items = [];
     global.firestoreBD
