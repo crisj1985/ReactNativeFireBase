@@ -1,44 +1,84 @@
 import { Alert } from "react-native";
 
-export const agregarItem = (mail, itemCompra, value) => {
+// export const agregarItem = (mail, itemCompra, value) => {
 
-    global.firestoreBD
-        .collection("carritos")
-        .doc(mail).collection("items")
-        .doc(itemCompra.id)
-        .get()
-        .then((obj) => {
-            console.log('Objeto', obj.exists)
-            if (obj.exists) {
-                let cantidadItem = obj.data().cantidad;
-                let itemPrecio = obj.data().precio;
-                global.firestoreBD
-                    .collection("carritos")
-                    .doc(mail).collection("items")
-                    .doc(itemCompra.id)
-                    .update({
-                        cantidad: cantidadItem + value,
-                        subtotal: (cantidadItem + value) * itemPrecio
-                    })
-            } else {
-                itemCompra.subtotal = itemCompra.precio;
-                global.firestoreBD
-                    .collection("carritos")
-                    .doc(mail).collection("items")
-                    .doc(itemCompra.id)
-                    .set(itemCompra)
-                    .then((obj) => {
-                        Alert.alert("Agregado al Carrito");
-                    })
-                    .catch((error) => {
-                        Alert.alert(error);
-                    })
-            }
+//     global.firestoreBD
+//         .collection("carritos")
+//         .doc(mail).collection("items")
+//         .doc(itemCompra.id)
+//         .get()
+//         .then((obj) => {
+//             console.log('Objeto', obj.exists)
+//             if (obj.exists) {
+//                 let cantidadItem = obj.data().cantidad;
+//                 let itemPrecio = obj.data().precio;
+//                 global.firestoreBD
+//                     .collection("carritos")
+//                     .doc(mail).collection("items")
+//                     .doc(itemCompra.id)
+//                     .update({
+//                         cantidad: cantidadItem + value,
+//                         subtotal: (cantidadItem + value) * itemPrecio
+//                     })
+//             } else {
+//                 itemCompra.subtotal = itemCompra.precio;
+//                 global.firestoreBD
+//                     .collection("carritos")
+//                     .doc(mail).collection("items")
+//                     .doc(itemCompra.id)
+//                     .set(itemCompra)
+//                     .then((obj) => {
+//                         Alert.alert("Agregado al Carrito");
+//                     })
+//                     .catch((error) => {
+//                         Alert.alert(error);
+//                     })
+//             }
 
-        })
-        .catch((error) => {
+//         })
+//         .catch((error) => {
 
-        })
+//         })
+
+// }
+
+export const agregarItem = async(mail, itemCompra, value) => {
+
+    try {
+        let obj = await global.firestoreBD
+            .collection("carritos")
+            .doc(mail).collection("items")
+            .doc(itemCompra.id)
+            .get();
+        console.log('Objeto', obj.exists)
+        if (obj.exists) {
+            let cantidadItem = obj.data().cantidad;
+            let itemPrecio = obj.data().precio;
+            let actualiza = await global.firestoreBD
+                .collection("carritos")
+                .doc(mail).collection("items")
+                .doc(itemCompra.id)
+                .update({
+                    cantidad: cantidadItem + value,
+                    subtotal: (cantidadItem + value) * itemPrecio
+                })
+            console.log("Actualiza cantidad")
+        } else {
+            itemCompra.subtotal = itemCompra.precio;
+            let agrega = await global.firestoreBD
+                .collection("carritos")
+                .doc(mail).collection("items")
+                .doc(itemCompra.id)
+                .set(itemCompra)
+            console.log("Agregado al carrito")
+
+        }
+
+    } catch (error) {
+        console.log("error!", error)
+    }
+
+
 
 }
 

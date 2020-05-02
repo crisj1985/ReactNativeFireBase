@@ -1,17 +1,29 @@
 import firebase from "firebase";
 import { Alert } from "react-native";
 
-export const fnCrearUsuarioFireBase = (email, pass, fnIrLogin) => {
-    firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, pass)
-        .then((obj) => {
-            Alert.alert("Info", "Usuario Registrado");
-            fnIrLogin();
-        })
-        .catch((error) => {
-            Alert.alert("Error! " + error.message);
-        });
+export const fnCrearUsuarioFireBase = async(email, pass, fnIrLogin) => {
+    try {
+        let respuesta = await firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, pass)
+        console.log("respuesta! " + respuesta);
+    } catch (error) {
+        Alert.alert("Error! " + error.message);
+        console.log("Error! " + error.message);
+    }
+
+
+    // firebase
+    //     .auth()
+    //     .createUserWithEmailAndPassword(email, pass)
+    //     .then((obj) => {
+    //         console.log("objeto:", obj.user)
+    //         Alert.alert("Info", "Usuario Registrado");
+    //         fnIrLogin();
+    //     })
+    //     .catch((error) => {
+    //         Alert.alert("Error! " + error.message);
+    //     });
 
 }
 

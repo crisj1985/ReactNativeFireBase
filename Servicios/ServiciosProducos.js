@@ -1,15 +1,26 @@
 import { Alert } from "react-native"
 
-const crearProducto = (producto, onSuccess, onError) => {
-    global.firestoreBD
-        .collection("productos")
-        .doc(producto.id).set(producto)
-        .then((obj) => {
-            onSuccess();
-        })
-        .catch((error) => {
-            onError(error);
-        })
+const crearProducto = async(producto, onSuccess, onError) => {
+
+    try {
+        let respuesta = await global.firestoreBD
+            .collection("productos")
+            .doc(producto.id).set(producto);
+        console.log("respuesta!" + respuesta);
+        onSuccess();
+    } catch (error) {
+        onError(error);
+    }
+
+    // global.firestoreBD
+    //     .collection("productos")
+    //     .doc(producto.id).set(producto)
+    //     .then((obj) => {
+    //         onSuccess();
+    //     })
+    //     .catch((error) => {
+    //         onError(error);
+    //     })
 }
 const buscarElemento = (elem, arreglo) => {
 
