@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 import "@firebase/firestore";
+import "@firebase/storage";
+
 
 export const cargarConfiguracion = () => {
     // if(!global.estaConfigurado){
@@ -15,6 +17,7 @@ export const cargarConfiguracion = () => {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     global.firestoreBD = firebase.firestore();
+    global.firestoreStorage = firebase.storage();
     global.estaConfigurado = true;
 
     // }
