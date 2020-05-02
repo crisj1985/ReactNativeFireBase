@@ -23,6 +23,8 @@ export class ItemCarrito extends Component {
                 </View>
                 <View style={styles.precio}>
                     <Text style={styles.textoDescripcion}> {precio} </Text>
+                </View>
+                <View style={styles.precio}>
                     <Text style={styles.textoDescripcion}> {subtotal} </Text>
                 </View>
                 <View style={styles.boton}>
@@ -41,37 +43,40 @@ export class ItemCarrito extends Component {
                         />
                     }
                     />
-                    <Button 
-                        type="clear"
-                        icon={
-                            <Icon
-                                name="plus"
-                                size={20}
-                                color="white"
-                                type="font-awesome"
-                            />
-                        }
-                        onPress={()=>{
-                            agregarItem(global.mailUsuario, itemCarrito, 1);
-                        }}
-                        />
-                        <Text>{cantidad}</Text>
-                    <Button 
-                        type="clear"
-                        icon={
-                            <Icon
-                                name="minus"
-                                size={20}
-                                color="white"
-                                type="font-awesome"
-                            />
-                            
-                        }
-                        onPress={() => { agregarItem(global.mailUsuario, itemCarrito, -1)}}
-                        //     : eliminarElementoFB(global.mailUsuario, id, this.OnSuccess, this.OnError)}
-                    />
+                    
                 </View>
-                
+                <View style={styles.boton}><Button
+                    type="clear"
+                    icon={
+                        <Icon
+                            name="plus"
+                            size={20}
+                            color="white"
+                            type="font-awesome"
+                        />
+                    }
+                    onPress={() => {
+                        agregarItem(global.mailUsuario, itemCarrito, 1);
+                    }}
+                />
+                </View>
+                <View><Text>{cantidad}</Text></View>
+            <View >
+                <Button
+                    type="clear"
+                    icon={
+                        <Icon
+                            name="minus"
+                            size={20}
+                            color="white"
+                            type="font-awesome"
+                        />
+
+                    }
+                    onPress={() => { agregarItem(global.mailUsuario, itemCarrito, -1) }}
+                //     : eliminarElementoFB(global.mailUsuario, id, this.OnSuccess, this.OnError)}
+                />
+                </View>   
             </View>
         )
     }
@@ -104,13 +109,13 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
     },
     boton: {
-        flex: 2,
+        flex: 1,
         alignItems: "center",
         paddingHorizontal: 10,
     },
 
     textoDescripcion: {
-        fontSize: 18,
+        fontSize: 15,
         fontWeight: "bold",
         color:"white"
     },
