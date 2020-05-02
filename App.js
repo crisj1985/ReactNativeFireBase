@@ -13,6 +13,7 @@ import { CarritoCompras } from "./screens/Carrito";
 import { Login } from "./screens/Login";
 import { Registrar } from "./screens/Registrar";
 import { CambioClave } from "./screens/CambioClave";
+import { CargarImagen } from "./screens/CargarImagen";
 import {cargarConfiguracion} from './Servicios/firebaseConfig'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import firebase from "firebase";
@@ -33,6 +34,7 @@ function Home() {
       <navStack.Screen options={{ title: 'Detalle Compras' }} name="StackDetalleCompra" component={DetalleCompra} />
       <navStack.Screen options={{ title: 'Detalle Producto' }} name="StackDetalleProducto" component={DetalleProducto} />
       <navStack.Screen options={{ title: 'Carrito de Compras' }} name="StackCarrito" component={CarritoCompras} />
+      <navStack.Screen options={{ title: 'Cargar Imagen' }} name="StackCargarImagen" component={CargarImagen} />
     </navStack.Navigator>
 
   );
