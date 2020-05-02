@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Alert } from "react-native";
-import { Input,Button } from "react-native-elements";
+import { Input,Button, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { crearProducto, updateElementoFB} from '../Servicios/ServiciosProducos'
 
@@ -16,7 +16,8 @@ export class FormularioProducto extends Component {
                id: ""+producto.id,
                nombre: producto.nombre,
                precio: "" +producto.precio,
-               esNuevo:false
+               esNuevo:false,
+               url:producto.url
              };
            }
            else{
@@ -24,7 +25,8 @@ export class FormularioProducto extends Component {
                id: 0,
                nombre: "",
                precio: 0,
-               esNuevo: true
+               esNuevo: true,
+               url: null
              };
            }
              
@@ -49,12 +51,35 @@ export class FormularioProducto extends Component {
            });
          };
 
+         recibirUrl = (urlDescarga) => {
+           console.log("urldes", urlDescarga);
+           this.setState({
+             url:urlDescarga
+           })
+         }
+
          render() {
+           let {nombre,url} = this.state;
            return (
              <View style={styles.container}>
                <Text>FORMULARIO DE PRODUCTO</Text>
+                 <Avatar
+                   title={nombre.substring(0, 2)}
+                   size="xlarge"
+                   source={url ? { uri: url } : null}
+                   icon={url ? null : { name: "user", type: "font-awesome" }}
+                 />
+               <Button
+                 title="Editar imagen"
+                 onPress={() => {
+                   this.props.navigation.navigate("StackCargarImagen", {
+                     fnUrl: this.recibirUrl,
+                   });
+                 }}
+               />
+
                <Input
-               disabled = {!this.state.esNuevo}
+                 disabled={!this.state.esNuevo}
                  value={this.state.id}
                  placeholder="Id"
                  secureTextEntry={false}
@@ -91,22 +116,29 @@ export class FormularioProducto extends Component {
                />
                <Button
                  onPress={() => {
-
-                   if (this.state.esNuevo){
-                    crearProducto({
-                      id: this.state.id,
-                      nombre: this.state.nombre,
-                      precio: parseFloat(this.state.precio),
-                    }, this.OnSuccess, this.OnError)
-                  }
-                  else{
-                    updateElementoFB({
-                      id: this.state.id,
-                      nombre: this.state.nombre,
-                      precio: parseFloat(this.state.precio),
-                    }, this.OnSuccess, this.OnError)
-                  }
-                   
+                   if (this.state.esNuevo) {
+                     crearProducto(
+                       {
+                         id: this.state.id,
+                         nombre: this.state.nombre,
+                         precio: parseFloat(this.state.precio),
+                         url: this.state.url,
+                       },
+                       this.OnSuccess,
+                       this.OnError
+                     );
+                   } else {
+                     updateElementoFB(
+                       {
+                         id: this.state.id,
+                         nombre: this.state.nombre,
+                         precio: parseFloat(this.state.precio),
+                         url: this.state.url,
+                       },
+                       this.OnSuccess,
+                       this.OnError
+                     );
+                   }
                  }}
                  icon={
                    <Icon
