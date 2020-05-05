@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Alert } from "react-native";
 import { Input,Button, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { crearProducto, updateElementoFB} from '../Servicios/ServiciosProducos'
+import { crearProducto, updateElementoFB, crearProductoRest, actualizarProductoRest, recuperarTodos} from '../Servicios/ServiciosProducos'
 
 export class FormularioProducto extends Component {
          constructor(props) {
@@ -117,27 +117,38 @@ export class FormularioProducto extends Component {
                <Button
                  onPress={() => {
                    if (this.state.esNuevo) {
-                     crearProducto(
-                       {
-                         id: this.state.id,
+                    //  crearProducto(
+                    //    {
+                    //      id: this.state.id,
+                    //      nombre: this.state.nombre,
+                    //      precio: parseFloat(this.state.precio),
+                    //      url: this.state.url,
+                    //    },
+                    //    this.OnSuccess,
+                    //    this.OnError
+                    //  );
+                     crearProductoRest({
                          nombre: this.state.nombre,
                          precio: parseFloat(this.state.precio),
-                         url: this.state.url,
-                       },
-                       this.OnSuccess,
-                       this.OnError
-                     );
+                         url: this.state.url,})
+                     recuperarTodos();
                    } else {
-                     updateElementoFB(
-                       {
-                         id: this.state.id,
+                     actualizarProductoRest({
+                       id: this.state.id,
                          nombre: this.state.nombre,
                          precio: parseFloat(this.state.precio),
-                         url: this.state.url,
-                       },
-                       this.OnSuccess,
-                       this.OnError
-                     );
+                         url: this.state.url,})
+
+                    //  updateElementoFB(
+                    //    {
+                    //      id: this.state.id,
+                    //      nombre: this.state.nombre,
+                    //      precio: parseFloat(this.state.precio),
+                    //      url: this.state.url,
+                    //    },
+                    //    this.OnSuccess,
+                    //    this.OnError
+                    //  );
                    }
                  }}
                  icon={

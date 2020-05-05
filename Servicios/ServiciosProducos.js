@@ -88,4 +88,94 @@ const registrarListener = (fnPintar) => {
         })
 }
 
+export const recuperarTodos = async(fnPintar) => {
+    console.log("ingreso");
+
+    try {
+        const response = await fetch('http://192.168.1.3:1337/productos');
+        const json = await response.json();
+        let productos = [];
+        if (response.ok) {
+            productos = json;
+            console.log("producto", productos);
+            await fnPintar(productos);
+        } else {
+            console.log("error:", json.message);
+        }
+
+        // console.log(json);
+    } catch (error) {
+        Alert.alert("error al consumir WS", error.message)
+    }
+    // return productos
+
+
+}
+
+export const crearProductoRest = async(producto) => {
+    try {
+        let hs = new Headers();
+        hs.append("Content-Type", 'application/json');
+        let options = {
+            method: 'POST',
+            headers: hs,
+            body: JSON.stringify(producto)
+        }
+        const response = await fetch('http://192.168.1.3:1337/productos', options);
+        const json = await response.json();
+        if (response.ok) {
+            let producto = json;
+            Alert.alert("Exito: Producto creado desde Rest");
+        } else {
+            console.log("error:", json.message);
+        }
+    } catch (error) {
+        Alert.alert("error al consumir WS", error.message)
+    }
+}
+
+
+export const eliminarProductoRest = async(producto) => {
+    try {
+        let hs = new Headers();
+        hs.append("Content-Type", 'application/json');
+        let options = {
+            method: 'DELETE',
+            headers: hs,
+            body: JSON.stringify(producto)
+        }
+        const response = await fetch('http://192.168.1.3:1337/productos/' + producto.id, options);
+        const json = await response.json();
+        if (response.ok) {
+            let producto = json;
+            Alert.alert("Producto Eliminado");
+        } else {
+            console.log("error:", json.message);
+        }
+    } catch (error) {
+        Alert.alert("error al consumir WS", error.message)
+    }
+}
+
+export const actualizarProductoRest = async(producto) => {
+    try {
+        let hs = new Headers();
+        hs.append("Content-Type", 'application/json');
+        let options = {
+            method: 'PUT',
+            headers: hs,
+            body: JSON.stringify(producto)
+        }
+        const response = await fetch('http://192.168.1.3:1337/productos/' + producto.id, options);
+        const json = await response.json();
+        if (response.ok) {
+            let producto = json;
+            Alert.alert("Producto Actualizado");
+        } else {
+            console.log("error:", json.message);
+        }
+    } catch (error) {
+        Alert.alert("error al consumir WS", error.message)
+    }
+}
 export { crearProducto, registrarListener, eliminarElementoFB, updateElementoFB };

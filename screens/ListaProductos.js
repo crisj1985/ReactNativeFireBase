@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Alert, FlatList } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ItemProducto } from "./itemProductos";
-import {registrarListener} from '../Servicios/ServiciosProducos'
+import { registrarListener, recuperarTodos} from '../Servicios/ServiciosProducos'
 
 export class ListaProductos extends Component {
 
@@ -23,17 +23,19 @@ pintar= (productos)=>{
 }
 
 componentDidMount(){
-registrarListener(this.pintar);
+// registrarListener(this.pintar);
+  recuperarTodos(this.pintar);
 }
 
   render() {
+    recuperarTodos(this.pintar);
     return (
       <View style={styles.container}>
         <Text>LISTA DE PRODUCTOS</Text>
        <FlatList
        data={this.state.listaProductos}
        renderItem = {({item})=>{
-       return <ItemProducto nav={this.props.navigation} productos={item}/>
+         return <ItemProducto nav={this.props.navigation} productos={item} fnRepintar={this.pintar}/>
        }}
        keyExtractor = {item=>item.id + ''}
        />

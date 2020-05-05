@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, FlatList, Alert } from "react-native";
-import { registrarListener } from '../Servicios/ServiciosProducos'
+import { registrarListener, recuperarTodos } from '../Servicios/ServiciosProducos'
 import { ItemCompra } from "./itemCompras";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -21,10 +21,12 @@ constructor(){
   }
 
   componentDidMount() {
-    registrarListener(this.pintar);
+    // registrarListener(this.pintar);
+    recuperarTodos(this.pintar) ;
   }
 
   render() {
+    recuperarTodos(this.pintar);
     return (
       <View style={styles.container}>
         <Text>LISTA DE COMPRAS</Text>

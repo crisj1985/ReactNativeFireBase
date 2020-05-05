@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Button, Alert,TouchableHighlight } from 'react-native'
-import { eliminarElementoFB} from '../Servicios/ServiciosProducos'
+import { eliminarElementoFB, eliminarProductoRest, recuperarTodos} from '../Servicios/ServiciosProducos'
 import { NavigationContext } from '@react-navigation/native';
 
 export class ItemProducto extends Component {
@@ -14,7 +14,7 @@ export class ItemProducto extends Component {
   };
 
     render() {
-        const {productos,nav} = this.props 
+      const { productos, nav, fnRepintar} = this.props 
         const {id,nombre,precio} = productos
         return (
           <View>
@@ -32,7 +32,9 @@ export class ItemProducto extends Component {
             <Button
             title='Eliminar'
             onPress={()=>{
-              eliminarElementoFB(id, this.OnSuccess, this.OnError);
+              // eliminarElementoFB(id, this.OnSuccess, this.OnError);
+              eliminarProductoRest({id:id})
+              recuperarTodos(fnRepintar);
             }}
             ></Button>
           </View>
