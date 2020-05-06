@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions,Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoding";
 import * as Location from "expo-location";
+import { Button } from 'react-native-elements';
+import {crearDireccion} from "../Servicios/ServiciosMapa"
 
 export class Mapa extends Component {
          constructor() {
@@ -49,16 +51,20 @@ export class Mapa extends Component {
            this.obtenerPosicion();
          }
 
+         OnSuccess = () => {
+           Alert.alert("Direccion Creada!");
+         };
+
+         OnError = (error) => {
+           Alert.alert("Error", error.message);
+         };
+
          render() {
-           const {
-             direccion,
-             initialLongitude,
-             initialLatitude,
-             region,
-           } = this.state;
+           const { direccion, initialLongitude, initialLatitude, region, coordenadasMarcador} = this.state;
+           const { latitude, longitude} = coordenadasMarcador;
            return (
              <View style={styles.container}>
-               <Text>{direccion}</Text>
+               {/* <Text>{direccion}</Text> */}
                <MapView
                  style={styles.mapStyle}
                  initialRegion={region}
@@ -66,8 +72,8 @@ export class Mapa extends Component {
                    console.log("Geocoder", region);
                    this.setState({
                      coordenadasMarcador: {
-                       latitud: region.latitude,
-                       longitud: region.longitude,
+                       latitude: region.latitude,
+                       longitude: region.longitude,
                      },
                    });
                  }}
@@ -87,6 +93,12 @@ export class Mapa extends Component {
                >
                  <Marker coordinate={this.state.coordenadasMarcador}></Marker>
                </MapView>
+               <Button style= {{flex:1} } title="Guardar" onPress={() => {
+                   crearDireccion({dirección: direccion,
+                                   latitud: latitude,
+                                   longitud:longitude,
+                                   estado: "V" }, this.OnSuccess, this.OnError)
+               }} />
              </View>
            );
          }
@@ -102,6 +114,7 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+    flex:6
   },
 });
 
