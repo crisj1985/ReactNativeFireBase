@@ -23,21 +23,21 @@ pintar= (productos)=>{
 }
 
 componentDidMount(){
-// registrarListener(this.pintar);
-  recuperarTodos(this.pintar);
+registrarListener(this.pintar);
+  // recuperarTodos(this.pintar);
 }
 
   render() {
-    recuperarTodos(this.pintar);
+    // recuperarTodos(this.pintar);
     return (
       <View style={styles.container}>
         <Text>LISTA DE PRODUCTOS</Text>
        <FlatList
        data={this.state.listaProductos}
        renderItem = {({item})=>{
-         return <ItemProducto nav={this.props.navigation} productos={item} fnRepintar={this.pintar}/>
+         return <ItemProducto nav={this.props.navigation} productos={item} />//fnRepintar={this.pintar}
        }}
-       keyExtractor = {item=>item.id + ''}
+          keyExtractor={(item, index) => index.toString()}
        />
         <ActionButton buttonColor="rgba(231,76,60,1)">
           <ActionButton.Item

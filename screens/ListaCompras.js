@@ -21,12 +21,12 @@ constructor(){
   }
 
   componentDidMount() {
-    // registrarListener(this.pintar);
-    recuperarTodos(this.pintar) ;
+    registrarListener(this.pintar);
+    // recuperarTodos(this.pintar) ;
   }
 
   render() {
-    recuperarTodos(this.pintar);
+    // recuperarTodos(this.pintar);
     return (
       <View style={styles.container}>
         <Text>LISTA DE COMPRAS</Text>

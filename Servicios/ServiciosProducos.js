@@ -57,7 +57,7 @@ const eliminarElementoFB = (id, onSuccess, onError) => {
 
 }
 
-const updateElementoFB = (producto) => {
+const updateElementoFB = (producto, onSuccess, onError) => {
     global.firestoreBD
         .collection('productos')
         .doc(producto.id)

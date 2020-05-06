@@ -32,9 +32,9 @@ export class ItemProducto extends Component {
             <Button
             title='Eliminar'
             onPress={()=>{
-              // eliminarElementoFB(id, this.OnSuccess, this.OnError);
-              eliminarProductoRest({id:id})
-              recuperarTodos(fnRepintar);
+              eliminarElementoFB(id, this.OnSuccess, this.OnError);
+              // eliminarProductoRest({id:id})
+              // recuperarTodos(fnRepintar);
             }}
             ></Button>
           </View>

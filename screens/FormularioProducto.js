@@ -117,38 +117,38 @@ export class FormularioProducto extends Component {
                <Button
                  onPress={() => {
                    if (this.state.esNuevo) {
-                    //  crearProducto(
-                    //    {
-                    //      id: this.state.id,
-                    //      nombre: this.state.nombre,
-                    //      precio: parseFloat(this.state.precio),
-                    //      url: this.state.url,
-                    //    },
-                    //    this.OnSuccess,
-                    //    this.OnError
-                    //  );
-                     crearProductoRest({
+                     crearProducto(
+                       {
+                         id: this.state.id,
                          nombre: this.state.nombre,
                          precio: parseFloat(this.state.precio),
-                         url: this.state.url,})
-                     recuperarTodos();
+                         url: this.state.url,
+                       },
+                       this.OnSuccess,
+                       this.OnError
+                     );
+                    //  crearProductoRest({
+                    //      nombre: this.state.nombre,
+                    //      precio: parseFloat(this.state.precio),
+                    //      url: this.state.url,})
+                    //  recuperarTodos();
                    } else {
-                     actualizarProductoRest({
-                       id: this.state.id,
-                         nombre: this.state.nombre,
-                         precio: parseFloat(this.state.precio),
-                         url: this.state.url,})
-
-                    //  updateElementoFB(
-                    //    {
-                    //      id: this.state.id,
+                    //  actualizarProductoRest({
+                    //    id: this.state.id,
                     //      nombre: this.state.nombre,
                     //      precio: parseFloat(this.state.precio),
-                    //      url: this.state.url,
-                    //    },
-                    //    this.OnSuccess,
-                    //    this.OnError
-                    //  );
+                    //      url: this.state.url,})
+
+                     updateElementoFB(
+                       {
+                         id: this.state.id,
+                         nombre: this.state.nombre,
+                         precio: parseFloat(this.state.precio),
+                         url: this.state.url,
+                       },
+                       this.OnSuccess,
+                       this.OnError
+                     );
                    }
                  }}
                  icon={
