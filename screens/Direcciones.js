@@ -11,8 +11,8 @@ export class Direcciones extends Component {
                 <ActionButton buttonColor="rgba(231,76,60,1)">
                     <ActionButton.Item
                         buttonColor="#9b59b6"
-                        title="Nuevo Producto"
-                        onPress={() => this.props.navigation.navigate("StackFormularioProducto")}
+                        title="Ir Mapa"
+                        onPress={() => this.props.navigation.navigate("StackMapa")}
                     >
                         <Icon name="md-create" />
                     </ActionButton.Item>
