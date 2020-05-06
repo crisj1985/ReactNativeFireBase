@@ -14,6 +14,7 @@ import { Login } from "./screens/Login";
 import { Registrar } from "./screens/Registrar";
 import { CambioClave } from "./screens/CambioClave";
 import { CargarImagen } from "./screens/CargarImagen";
+import { Direcciones } from "./screens/Direcciones";
 import {cargarConfiguracion} from './Servicios/firebaseConfig'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import firebase from "firebase";
@@ -78,6 +79,24 @@ function TabHome() {
         }}
         name="TabListaProductos"
         component={ListaProductos}
+      />
+      <NavTab.Screen
+        options={{
+          tabBarLabel: "Direcciones",
+          tabBarIcon: () => {
+            return (
+              <Icon
+                reverse
+                name="address-card"
+                type="font-awesome"
+                color="#517fa4"
+                size={16}
+              />
+            );
+          },
+        }}
+        name="TabDirecciones"
+        component={Direcciones}
       />
     </NavTab.Navigator>
   );
