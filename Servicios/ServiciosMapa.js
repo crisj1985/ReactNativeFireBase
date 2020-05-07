@@ -14,3 +14,21 @@ export const crearDireccion = async(direccion, onSuccess, onError) => {
         onError(error);
     }
 }
+
+export const consultarTodos = async(fnPintar) => {
+    try {
+        let resultado = await global.firestoreBD
+            .collection("direcciones")
+            .doc(global.mailUsuario)
+            .collection("puntos")
+            // .doc()
+            .get();
+        console.log(resultado)
+        await fnPintar(resultado.docs);
+        // resultado.docs[0].data()
+
+    } catch (error) {
+        Alert.alert("Error", error.message)
+    }
+
+}
