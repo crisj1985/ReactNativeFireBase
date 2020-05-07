@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, FlatList } from 'react-native'
 import ActionButton from 'react-native-action-button'
 import Icon from "react-native-vector-icons/Ionicons";
-import { consultarTodos} from '../Servicios/ServiciosMapa'
+import { consultarTodos, consultarVigentes} from '../Servicios/ServiciosMapa'
 import { ItemDireccion} from './ItemDireccion'
 import { Button } from 'react-native-elements';
 
@@ -38,6 +38,10 @@ componentDidMount (){
                 <Button 
                     title="Listar" 
                     onPress={() => consultarTodos(this.fnPintar) }
+                />
+                <Button
+                    title="Listar Solo Vigentes"
+                    onPress={() => consultarVigentes(this.fnPintar)}
                 />
                 <ActionButton buttonColor="rgba(231,76,60,1)">
                     <ActionButton.Item

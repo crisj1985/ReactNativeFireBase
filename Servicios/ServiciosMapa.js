@@ -50,3 +50,22 @@ export const actualizarEstado = async(id, value) => {
     }
 
 }
+
+export const consultarVigentes = async(fnPintar) => {
+    try {
+        let resultado = await global.firestoreBD
+            .collection("direcciones")
+            .doc(global.mailUsuario)
+            .collection("puntos")
+            .where("estado", "==", "V")
+            .get();
+
+        console.log(resultado)
+
+        await fnPintar(resultado.docs);
+
+    } catch (error) {
+        Alert.alert("Error", error.message)
+    }
+
+}
