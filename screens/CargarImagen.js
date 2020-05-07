@@ -71,27 +71,55 @@ urlDescarga =  async (nombreArchivo) => {
 
          render() {
            return (
-             <View>
+             <View style={styles.fila}>
                <Text> Cargar Imagen </Text>
-               <Avatar
-                 title="Imagen"
-                 size="xlarge"
-                 source={{ uri: this.state.imagen }}
-               />
-               <Button
-                 title="Cargar"
-                 onPress={() => {
-                   this.abrirImagen();
-                 }}
-               />
-
-               <Button
-                 title="Guardar"
-                 onPress={() => {
-                   this.guardarStorage();
-                 }}
-               />
+               <View style={styles.imagen}>
+                  <Avatar
+                    title="Imagen"
+                    size= {250}//"xlarge"
+                    source={{ uri: this.state.imagen }}
+                  />
+               </View>
+               <View style={styles.boton}>
+                  <Button
+                    title="Cargar"
+                    onPress={() => {
+                      this.abrirImagen();
+                    }}
+                  />
+                 <Button
+                   title="Guardar"
+                   onPress={() => {
+                     this.guardarStorage();
+                   }}
+                 />
+               </View>
              </View>
            );
          }
        }
+
+const styles = StyleSheet.create({
+  fila: {
+    flex: 1,
+    // backgroundColor: "#33FF86",
+    marginBottom: 10,
+    // alignItems: "stretch",//aplica al eje transversal
+    // justifyContent: "center",//eje principal
+    paddingVertical: 10,
+    // paddingTop: 10,
+    borderRadius: 15
+
+  },
+
+  imagen: {
+    flex: 6,
+     alignItems: "center",
+    //  backgroundColor: "red",
+    justifyContent: "center"
+  },
+  boton: {
+    flex: 3,
+    alignItems: "center",
+  }
+});
