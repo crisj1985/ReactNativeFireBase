@@ -32,3 +32,21 @@ export const consultarTodos = async(fnPintar) => {
     }
 
 }
+
+export const actualizarEstado = async(id, value) => {
+
+    try {
+        await global.firestoreBD
+            .collection("direcciones")
+            .doc(global.mailUsuario)
+            .collection("puntos")
+            .doc(id)
+            .update({
+                estado: value
+            })
+        Alert.alert("Estado actualizado")
+    } catch (error) {
+        Alert.alert("Error", error.message)
+    }
+
+}

@@ -4,6 +4,7 @@ import ActionButton from 'react-native-action-button'
 import Icon from "react-native-vector-icons/Ionicons";
 import { consultarTodos} from '../Servicios/ServiciosMapa'
 import { ItemDireccion} from './ItemDireccion'
+import { Button } from 'react-native-elements';
 
 export class Direcciones extends Component {
 
@@ -31,8 +32,12 @@ componentDidMount (){
                 <Text>Direcciones</Text>
                 <FlatList
                     data={lstDirecciones}
-                    renderItem={({ item }) => <ItemDireccion direccion = {item.data()}/>}
+                    renderItem={({ item }) => <ItemDireccion id = {item.id} direccion = {item.data()}/>}
                     keyExtractor={item=>item.id}
+                />
+                <Button 
+                    title="Listar" 
+                    onPress={() => consultarTodos(this.fnPintar) }
                 />
                 <ActionButton buttonColor="rgba(231,76,60,1)">
                     <ActionButton.Item

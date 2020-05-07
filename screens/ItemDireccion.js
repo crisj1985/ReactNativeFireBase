@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
+import { actualizarEstado} from '../Servicios/ServiciosMapa'
 
 export class ItemDireccion extends Component {
 
     render() {
-        const { direccion } =this.props
+        const { direccion, id } =this.props
         const { dirección} = direccion
         return (
             <View style={styles.fila}>
@@ -16,7 +17,7 @@ export class ItemDireccion extends Component {
                     <Button
                     title="Eliminar"
                     onPress = {()=>{
-
+                        actualizarEstado(id,'E');
                     }}
                     />
                 </View>                
