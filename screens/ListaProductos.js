@@ -27,6 +27,8 @@ registrarListener(this.pintar);
   // recuperarTodos(this.pintar);
 }
 
+keyExtractor = (item, index) => {return index.toString()}
+
   render() {
     // recuperarTodos(this.pintar);
     return (
@@ -37,7 +39,7 @@ registrarListener(this.pintar);
        renderItem = {({item})=>{
          return <ItemProducto nav={this.props.navigation} productos={item} />//fnRepintar={this.pintar}
        }}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={this.keyExtractor}
        />
         <ActionButton buttonColor="rgba(231,76,60,1)">
           <ActionButton.Item
